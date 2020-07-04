@@ -3,7 +3,7 @@ if ($PSVersionTable.PSEdition -eq 'Core') {
     exit
 }
 
-$name = Get-Date -Format 'yyyy/MM/dd/HHmmss'
+$name = Get-Date -Format 'yyyy/MM/ddHHmmss'
 
 # $name = "2020/04/04/$(Get-Date -Format 'HHmmss')"
 
