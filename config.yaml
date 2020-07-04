@@ -1,0 +1,100 @@
+# https://s0gohugo0io.icopy.site/getting-started/configuration/
+
+baseurl: "https://blog.acdzh.ltd"
+languageCode: "zh-CN"
+copyright: "Copyright (c) 2020. All rights reserved."
+
+MetaDataFormat: "yaml"
+googleAnalytics: "UA-148601605-2"
+
+
+theme: "rapid"
+title: "串串的杂七杂八"
+
+canonifyurls: true # 启用以将相对URL变为绝对URL.
+builddrafts: false # 构建草稿.
+
+# pygmentsStyle: "default"
+# pygmentsUseClasses: true
+pygmentsCodeFences: false
+
+RSSUri: "feed.xml"
+disablePathToLower: true 
+hasCJKLanguage: true
+DisqusShortname: "acdzh"
+
+permalinks:
+  post: post/:year-:month/:slug/
+  tec: tec/:year-:month/:slug/
+  chat: chat/:year-:month/:slug/
+  otherss: others/:slug/
+
+Taxonomies:
+  tag: "tags"
+  series: "series"
+  category: "categories"
+
+Params:
+  CopyrightHTML: "Copyright &#xA9; 2020. All Rights Reserved."
+  RepositoriesPath: "https://github.com/acdzh/hugo-blog"
+  googleAdSense: "ca-pub-7980517780099899"
+  SidebarRecentLimit: 5
+  DateFormat: "2006年01月02日 15:04"
+  Tagline: "---0-0-0---"
+  Description: ""
+  Keywords: "独立博客,程序员,思考,读书笔记,技术分享"
+  SyntaxHighLightStyle: "github" # https://www.bootcdn.cn/highlight.js/
+  SyntaxHLStyleIsLight: true
+  IndexDetailedPostCount: 10
+  MainSections: [post, tec, chat]
+  Author:
+    Name: "acdzh"
+    Homepage: "https://blog.acdzh.ltd"
+    GithubUserName: "acdzh"
+    SocialLinks:
+      QQ: 1069436872
+      CNBlogs: "acdzh"
+      Weibo: null
+      Zhihu: "kkkk-zzzz-13"
+      ZhihuZhuanlan: "c_1159869906471759872"
+      Mail: acdzh@outlook.com
+      Steam: "acdzh"
+      Facebook: null
+      Linkedin: null
+      Instagram: null
+      Twitter: null
+  
+menu:
+  categories:
+    - Name: 技术
+      EnglishName: tec
+      Pre: "<i class='fas fa-gavel'></i>"
+    - Name: 闲话
+      Pre: "<i class='fas fa-comment'></i>"
+  main:
+      - Name: "归档"
+        Pre: "<i class='fas fa-archive'></i>"
+        Weight: -110
+        Identifier: "post"
+        URL: "/post"
+      - Name: "其它"
+        Pre: "<i class='fas fa-tools'></i>"
+        Weight: -110
+        Identifier: "others"
+        URL: "/others"
+      - Name: "关于我"
+        Pre: "<i class='fas fa-user'></i>"
+        Identifier: "about"
+        Weight: -100
+        URL: "/about"
+
+
+images:
+  - 480x
+  - 768x
+  - 960x
+  - 1024x
+  - 1920x
+  - 720x340
+  - 520x245
+

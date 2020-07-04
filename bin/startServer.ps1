@@ -1,0 +1,1 @@
+Start-Process hugo.exe -WindowStyle  Hidden  -ArgumentList ("server", "--port 80", "--bind 0.0.0.0", "--baseURL", "localhost", "--disableFastRender")
