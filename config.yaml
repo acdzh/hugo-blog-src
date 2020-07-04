@@ -36,7 +36,7 @@ Taxonomies:
 
 Params:
   CopyrightHTML: "Copyright &#xA9; 2020. All Rights Reserved."
-  RepositoriesPath: "https://github.com/acdzh/hugo-blog"
+  RepositoriesPath: "https://github.com/acdzh/hugo-blog-src"
   googleAdSense: "ca-pub-7980517780099899"
   SidebarRecentLimit: 5
   DateFormat: "2006年01月02日 15:04"
