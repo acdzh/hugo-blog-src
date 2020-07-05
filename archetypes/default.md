@@ -4,8 +4,8 @@ date: {{ .Date }}
 draft: false
 comments: true
 description: 
-author: adaminxie
-fromurl: https://www.cnblogs.com/adaminxie/p/6754644.html
+author: 
+fromurl: 
 url:
 slug: 
 math: 
