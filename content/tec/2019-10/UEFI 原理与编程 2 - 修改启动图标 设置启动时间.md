@@ -8,6 +8,7 @@ slug: uefi_tutorial_2-edit_bootimg_boottime
 tags: [EDK2, UEFI]
 series: [UEFI 原理与编程]
 categories: [技术, 嵌入式开发]
+plugins: [code]
 ---
 
 ## 修改启动图标

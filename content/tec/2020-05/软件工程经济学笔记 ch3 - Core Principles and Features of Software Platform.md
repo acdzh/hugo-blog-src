@@ -11,6 +11,7 @@ cover: ../img/2020/05/25/143355.png
 tags: [软件工程, 经济学, 课程, 笔记]
 series: [软件工程经济学笔记]
 categories: [技术, 软件工程]
+plugins: 
 ---
 
 ![cover](../img/2020/05/25/143355.png)

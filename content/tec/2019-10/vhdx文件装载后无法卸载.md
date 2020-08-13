@@ -7,6 +7,7 @@ description: ""
 tags: [Windows, Hyper-V]
 series: []
 categories: [技术, Windows]
+plugins: 
 ---
 
 ## 尝试1: 在磁盘管理器中卸载

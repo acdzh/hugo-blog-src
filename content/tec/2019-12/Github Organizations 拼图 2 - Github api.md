@@ -1,5 +1,5 @@
 ---
-title: "Github Organizations 拼图 2 Github Api"
+title: "Github Organizations 拼图 2 - Github Api"
 date: 2019-12-13T00:27:00+08:00
 draft: false
 comments: true
@@ -10,6 +10,7 @@ slug: github_organizations_puzzle_2-github_api
 tags: [PIL, Github, Python, 爬虫]
 series: [Github Organizations 拼图]
 categories: [技术, Python, 爬虫]
+plugins: [code]
 ---
 
 ## 前言

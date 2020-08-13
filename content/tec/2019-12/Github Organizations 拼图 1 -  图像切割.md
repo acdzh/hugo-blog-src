@@ -8,7 +8,7 @@ slug: github_organizations_puzzle_1-cut_image
 tags: [PIL, Github, Python, 爬虫]
 series: [Github Organizations 拼图]
 categories: [技术, Python, 爬虫]
-math: mathjax
+plugins: [code, mathjax]
 ---
 
 ## 前言

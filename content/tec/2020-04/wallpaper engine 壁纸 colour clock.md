@@ -11,6 +11,7 @@ tags: [Wallpaper Engine]
 series: []
 categories: [技术, 前端]
 cover: ../img/2020/04/01/221316.png
+plugins: 
 ---
 
 今天心血来潮又打开了 windows 的屏保, 无奈自带的屏保太少了, 在网上找到了一篇 17 年的老文:

@@ -11,6 +11,7 @@ cover: ../img/2019/12/25/020626.png
 tags: [EDK2, UEFI]
 series: [UEFI 原理与编程]
 categories: [技术, 嵌入式开发]
+plugins: [code]
 ---
 
 ## UEFI工程模块文件

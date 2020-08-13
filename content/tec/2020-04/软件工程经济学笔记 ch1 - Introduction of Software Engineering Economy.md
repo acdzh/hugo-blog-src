@@ -11,6 +11,7 @@ cover:
 tags: [软件工程, 经济学, 课程, 笔记]
 series: [软件工程经济学笔记]
 categories: [技术, 软件工程]
+plugins: 
 ---
 
 [lecture - SEE.ch01.lecture.pdf](files/2020/04/SEE.ch01.lecture.pdf)

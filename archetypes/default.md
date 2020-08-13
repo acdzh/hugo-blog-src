@@ -8,11 +8,11 @@ author:
 fromurl: 
 url:
 slug: 
-math: 
 cover:
 tags: []
 series: []
 categories: [技术, 闲话]
+plugins: [code, math, dot]
 ---
 
 ## 历史记录

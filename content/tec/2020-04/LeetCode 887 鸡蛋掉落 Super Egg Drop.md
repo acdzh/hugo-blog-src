@@ -11,6 +11,7 @@ cover: ../img/2020/04/04/224703.png
 tags: [Leetcode, Golang]
 series: [LeetCode with Golang]
 categories: [技术, 算法, Golang]
+plugins: [code, math]
 ---
 
 [10. 鸡蛋掉落 - 力扣 leetcode-cn.com](https://leetcode-cn.com/problems/super-egg-drop/)

@@ -8,6 +8,7 @@ slug: uefi_tutorial_3-edk2_boot_disk
 tags: [EDK2, UEFI]
 series: [UEFI 原理与编程]
 categories: [技术, 嵌入式开发]
+plugins: [code]
 ---
 
 ## 传统Legacy模式启动盘

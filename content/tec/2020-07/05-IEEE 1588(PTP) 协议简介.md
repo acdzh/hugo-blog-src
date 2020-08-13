@@ -14,6 +14,7 @@ cover:
 tags: [IEEE 1588, PTP]
 series: []
 categories: [技术]
+plugins: [math]
 ---
 
 IEEE 1588, Precision Time Protocol (精确时间协议), 简称 PTP, 用于亚微秒级别时间同步精度, 于 2002 年发布 version 1, 2008 年发布 version 2.

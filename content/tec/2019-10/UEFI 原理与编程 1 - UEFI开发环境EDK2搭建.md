@@ -8,6 +8,7 @@ slug: uefi_tutorial_1-start_edk2
 tags: [EDK2, UEFI]
 series: [UEFI 原理与编程]
 categories: [技术, 嵌入式开发]
+plugins: [code]
 ---
 
 ## 概述
