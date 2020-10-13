@@ -38,6 +38,10 @@ Params:
   CopyrightHTML: "Copyright &#xA9; 2020. All Rights Reserved."
   RepositoriesPath: "https://github.com/acdzh/hugo-blog-src"
   googleAdSense: "ca-pub-7980517780099899"
+  CommentsComponent: valine # or disqus
+  Valine:
+    appId: THSEEUpmt73ioQLUO7dO6sI8-9Nh9j0Va
+    appKey: 2ko493HrmEBiJ5FFTpPnnrWg
   SidebarRecentLimit: 5
   DateFormat: "2006年01月02日 15:04"
   Tagline: "---0-0-0---"
