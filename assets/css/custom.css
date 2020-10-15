@@ -1,0 +1,265 @@
+.hidden {
+    display: none;
+}
+
+/* 隐藏 valine 脚标 */
+.vpower { 
+    display: none;
+}
+
+/************************ color start *************************/
+    /* 主题背景色 */
+    #nav-topbar.nav-container, .nav-container, .themeform input[type="submit"], .themeform button[type="submit"], .sidebar .sidebar-top, .sidebar .sidebar-toggle, #flexslider-featured .flex-control-nav li a.flex-active, .post-tags a:hover, .s1 .widget_calendar caption, #footer .widget_calendar caption, .author-bio .bio-avatar:after, .commentlist li.bypostauthor > .comment-body:after, .commentlist li.comment-author-admin > .comment-body:after {
+        background-color:#c26d46;
+    }
+
+    /* 主题前景色 (eg. 字体颜色) */
+    a, .post-read-more, .themeform label .required, #flexslider-featured .flex-direction-nav .flex-next:hover, #flexslider-featured .flex-direction-nav .flex-prev:hover, .post-hover:hover .post-title a, .post-title a:hover, .s1 .post-nav li a:hover i, .content .post-nav li a:hover i, .post-related a:hover, .s1 .widget_rss ul li a, #footer .widget_rss ul li a, .s1 .widget_calendar a, #footer .widget_calendar a, .s1 .alx-tab .tab-item-category a, .s1 .alx-posts .post-item-category a, .s1 .alx-tab li:hover .tab-item-title a, .s1 .alx-tab li:hover .tab-item-comment a, .s1 .alx-posts li:hover .post-item-title a, #footer .alx-tab .tab-item-category a, #footer .alx-posts .post-item-category a, #footer .alx-tab li:hover .tab-item-title a, #footer .alx-tab li:hover .tab-item-comment a, #footer .alx-posts li:hover .post-item-title a, .comment-tabs li.active a, .comment-awaiting-moderation, .child-menu a:hover, .child-menu .current_page_item > a, .wp-pagenavi a {
+        color: #c26d46;
+    }
+/************************* color end **************************/
+
+
+
+/************************* fonts start *************************/
+    /* 代码字体 */
+    .entry code, .entry pre {
+        font-family: 'Fira Code', Hack, monospace
+    }
+
+    /* 普通字体 */
+    body, h1, h2, h3, h4, h5, p, input, textarea, button, select, label {
+        font-family: "Helvetica Neue","Hiragino Sans GB","Microsoft YaHei","\9ED1\4F53",Arial,sans-serif;
+    }
+/************************* fonts end ***************************/
+
+
+
+/************************* radius and box shadow start *************************/
+    /* 顶栏圆角和阴影 */
+    #nav-topbar.nav-container, .nav-container {
+        border-radius: 0 0 6px 6px;
+        box-shadow: 0 2px 3px rgba(26, 26, 26, 0.46);
+    }
+
+    /* 主体部分圆角加阴影 */
+    .container-inner, .main, .main-inner, .content {
+        border-radius: 8px;
+        box-shadow: 0 1px 5px rgba(0,0,0,.075);
+    }
+
+    /* 代码, 图片圆角 */
+    code, img, svg, iframe, table {
+        border-radius: 6px;
+        box-shadow: 0 1px 5px rgba(0,0,0,.075);
+    }
+
+    img, table {
+        border: 1px solid #ddd;
+        max-width: 99%;
+    }
+
+    .dot > svg { 
+        max-width: 99%;
+    }
+
+    svg { 
+        margin-left: auto; 
+        margin-right:auto; 
+        display:block;
+    }
+
+    pre {
+        tab-size: 4;
+        border-radius: 6px 0 6px 6px;
+        box-shadow: 0 1px 5px rgba(0,0,0,.075);
+    }
+
+    /* footer 上部圆角 */
+    #footer-bottom {
+        border-radius: 8px 8px 0 0;
+    }
+
+    /* s1 左上圆角 */
+    .s1 .sidebar-top, .s1 .sidebar-toggle {
+        border-radius: 8px 0 0 0;
+    }
+
+    /* s2 右上圆角 */
+    .s2 .sidebar-top, .s2 .sidebar-toggle {
+        border-radius: 0 8px 0 0;
+    }
+/************************* radius and box shadow end ***************************/
+
+
+
+/************************* sidebar start *************************/
+    .s1 {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 55px;
+    }
+
+    /* i don't know why but it really fuckly work. */
+    /* i hate css. */
+    /* fuck css position. */
+    /* fuck! */
+    @media only screen and (max-width: 960px) and (min-width: 480px) {
+        .s1-expand .s1  {
+            position: -webkit-sticky !important;
+            position: sticky !important;
+            top: 55px !important;
+            position: sticky !important;
+            margin-left: -3000px !important; /* why it works!? */
+            overflow: hidden;
+        }
+    }
+    @media only screen and (max-width: 960px) and (min-width: 720px) {
+        .s1-expand .s1 { transform: translateX(10px); }
+    }
+
+    /* 当屏幕宽度过小时, s1 重新出现在文章下方, 不再使用 sticky */
+    @media only screen and (max-width: 479px) {
+        .s1 {
+            position: relative;
+            top: 0
+        }
+    }
+/************************* sidebar end ***************************/
+
+
+
+/************************* scrollbar start *************************/
+    /* 滚动条 */
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+        background-color: rgba(238, 238, 238, 0.2);
+        /*#eee*/
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        border-radius: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #c26d46aa;
+        background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+        border-radius: 6px;
+    }
+/************************* scrollbar end ***************************/
+
+
+
+/************************* hljs tools start *************************/
+.hljs-toolbox {
+    position: absolute;
+    right: 0;
+    padding-right: 2%;
+    padding-left: 2%;
+    margin-top: -20px;
+    background-color: rgba(248, 248, 248, 0.95);
+    border: 1px solid #ddd;
+    border-radius: 6px 6px 0 0;
+    border-bottom-width: 0;
+}
+.hljs::-webkit-scrollbar { height: 6px; }
+.hljs { overflow-x: auto; white-space: pre; line-height: 1.6; }
+.hljs ul { margin: 0; }
+.hljs ul li { list-style: circle; /* none;decimal-leading-zero; */ }
+.blob-num { padding-right: 14px; /* color please see head.includes.html */ }
+.blob-num:before { content: attr(data-line-number); }
+/************************* hljs tools end ***************************/
+
+
+/************************* title start *************************/
+#header {
+    background-size: cover;
+}
+
+#title-avatar-img {
+    border-radius: 50%;
+    width: 72px;
+    height: 72px;
+    margin: 0 auto;
+}
+
+
+@media only screen and (max-width: 719px) {
+    .site-title a {
+        float: left;
+    }
+}
+
+@media only screen and (max-width: 479px) {
+    #title-avatar-img {
+        border-radius: 50%;
+        width: 64px;
+        height: 64px;
+        margin: 0 auto;
+    }
+}
+/************************* title end ***************************/
+
+/************************* toc start *************************/
+.toc {
+    width: 80%;
+    max-height: 460px;
+    overflow-y: auto;
+    margin: 0;
+    padding: 20px 30px 20px 30px;
+    font-size: 14px;
+    line-height: 2.2em;
+    border-bottom: 1px solid #ddd;
+}
+.toc-nav ul, .toc-nav li {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.toc-nav ul ul ul { margin-left: 2rem; }
+.toc-nav .toc-nav-link { color: #666; }
+.toc-nav li.active .toc-nav-link {
+    background-color: #f6f6f6;
+    color: #ff0;
+    border-left: solid 2px #ff0;
+}
+/* see sidebar.css */
+@media only screen and (max-width: 479px) {
+    .toc { display: none; }
+}
+/************************* toc end ***************************/
+
+/************************* post featured start *************************/
+.post-cover {
+    width: 172px; 
+    height: 96px; 
+    float: left; 
+    margin-right: 18px;
+}
+
+@media only screen and (max-width: 719px) {
+    .post-cover {
+        width: 100%; 
+        height: 143px;
+        float: none; 
+        margin-bottom: 6px;
+    }
+}
+
+@media only screen and (max-width: 479px) {
+    .post-cover {
+        height: 100px;
+    }
+}
+
+.featured .post-title {
+    font-size: 30px;
+}
+
+@media only screen and (max-width: 719px){
+    .featured .post-title {
+        font-size: 22px;
+    }
+}
+
+/************************* post featured end ***************************/

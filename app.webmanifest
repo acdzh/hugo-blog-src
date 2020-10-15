@@ -1,0 +1,77 @@
+{
+    "name": "串串的杂七杂八",
+    "short_name": "串串 Blog",
+    "display": "standalone",
+    "description": "The blog by acdzh.",
+    "start_url": "/",
+    "theme_color": "#c26d46",
+    "background_color": "#f0f0f0",
+    "android_package_name":"ltd.acdzh.blog.pwa",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "/public/icons/png/avatar_16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },{
+            "src": "/public/icons/png/avatar_32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },{
+            "src": "/public/icons/png/avatar_64x64.png",
+            "sizes": "64x64",
+            "type": "image/png"
+        },{
+            "src": "/public/icons/png/avatar_128x128.png",
+            "sizes": "128x128",
+            "type": "image/png"
+        },{
+            "src": "/public/icons/png/avatar_144x144.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        },{
+            "src": "/public/icons/png/avatar_256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },{
+            "src": "/public/icons/png/avatar_512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },{
+            "purpose":"maskable",
+            "src": "/public/icons/png/avatar_mask_16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },{
+            "purpose":"maskable",
+            "src": "/public/icons/png/avatar_mask_32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },{
+            "purpose":"maskable",
+            "src": "/public/icons/png/avatar_mask_64x64.png",
+            "sizes": "64x64",
+            "type": "image/png"
+        },{
+            "purpose":"maskable",
+            "src": "/public/icons/png/avatar_mask_128x128.png",
+            "sizes": "128x128",
+            "type": "image/png"
+        },{
+            "purpose":"maskable",
+            "src": "/public/icons/png/avatar_mask_144x144.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        },{
+            "purpose":"maskable",
+            "src": "/public/icons/png/avatar_mask_256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },{
+            "purpose":"maskable",
+            "src": "/public/icons/png/avatar_mask_512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

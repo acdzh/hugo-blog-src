@@ -1,0 +1,470 @@
+<!doctype html><html class=no-js><head><base href=https://blog.acdzh.ltd/><script></script><title>Github Organizations 拼图 2 - Github Api - 串串的杂七杂八</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=description content="前言 上一篇文章 介绍了如何将图片切开, 那么下一步的操作就是与 Github 进行交互, 将图片上传上去. Github有官方的api, 但是遗憾的是, 涉及的 Organizations 的 api"><meta name=author content="acdzh"><meta name=theme-color content="#c26d46"><meta name=publisher content="acdzh"><meta name=generator content="http://gohugo.io/"><meta name=viewport content="width=device-width,initial-scale=1,user-scalable=no"><meta http-equiv=content-language content="zh-cn"><meta itemprop=name content="Github Organizations 拼图 2 - Github Api - 串串的杂七杂八"><meta itemprop=description content="前言 上一篇文章 介绍了如何将图片切开, 那么下一步的操作就是与 Github 进行交互, 将图片上传上去. Github有官方的api, 但是遗憾的是, 涉及的 Organizations 的 api"><meta itemprop=image content="https://blog.acdzh.ltd/public/icons/png/avatar_512x512.png"><meta property="og:title" content="Github Organizations 拼图 2 - Github Api - 串串的杂七杂八"><meta property="og:type" content="article"><meta property="og:url" content="https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/"><meta property="og:image" content="https://blog.acdzh.ltd/public/icons/png/avatar_512x512.png"><meta property="og:description" content="前言 上一篇文章 介绍了如何将图片切开, 那么下一步的操作就是与 Github 进行交互, 将图片上传上去. Github有官方的api, 但是遗憾的是, 涉及的 Organizations 的 api"><meta name=twitter:card content="summary"><meta name=twitter:site content="@acdzh"><meta name=twitter:title content="Github Organizations 拼图 2 - Github Api - 串串的杂七杂八"><meta name=twitter:description content="前言 上一篇文章 介绍了如何将图片切开, 那么下一步的操作就是与 Github 进行交互, 将图片上传上去. Github有官方的api, 但是遗憾的是, 涉及的 Organizations 的 api"><meta name=twitter:creator content="@acdzh"><meta name=twitter:image content="https://blog.acdzh.ltd/public/icons/png/avatar_512x512.png"><script>document.documentElement.className=document.documentElement.className.replace("no-js","js");</script><link rel=canonical href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/><link rel=shortlink href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/><link type=image/x-icon rel="shortcut icon" href=https://blog.acdzh.ltd/public/icons/png/avatar_64x64.png><script data-ad-client=ca-pub-7980517780099899 async src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><link rel=stylesheet id=human-style-css href=https://blog.acdzh.ltd/wp-content/themes/hueman/style.css type=text/css media=all><link rel=stylesheet id=responsive-css href=https://blog.acdzh.ltd/wp-content/themes/hueman/responsive.css type=text/css media=all><link rel=stylesheet id=human-style-css2 href=https://blog.acdzh.ltd/wp-content/themes/hueman-child/style.css type=text/css media=all><link rel=stylesheet id=human-style-css3 href=https://blog.acdzh.ltd/wp-content/themes/hueman-child/user.css type=text/css media=all><link href=https://cdn.bootcdn.net/ajax/libs/highlight.js/9.18.1/styles/github.min.css rel=stylesheet><script src=https://cdn.bootcdn.net/ajax/libs/highlight.js/9.18.1/highlight.min.js></script><script>hljs.initHighlightingOnLoad();</script><style>.blob-num,.hljs-toolbox{color:rgba(27,31,35,.3)}</style><link href=https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.0/css/all.min.css rel=stylesheet><link rel=stylesheet href=public/font/hack/css/hack.min.css><link rel=stylesheet href="https://fonts.loli.net/css2?family=Fira+Code&display=swap"><script src=https://cdn.bootcdn.net/ajax/libs/jquery/3.5.0/jquery.min.js></script><script src=https://cdn.bootcdn.net/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js></script><script src=https://cdn.bootcdn.net/ajax/libs/picturefill/3.0.3/picturefill.min.js></script><script type=text/javascript src=wp-content/themes/hueman/js/scripts.js></script><link rel=stylesheet id=custom-css href=assets/css/custom.css type=text/css media=all><script type=text/javascript async defer src=assets/js/myblog.js></script><script>if('serviceWorker'in navigator){navigator.serviceWorker.register('/assets/js/service-worker.js');}</script><link rel=manifest href=https://blog.acdzh.ltd/app.webmanifest><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create','UA-148601605-2','auto');ga('send','pageview');}</script></head><body class="single single-post single-format-standard col-3cm full-width topbar-enabled chrome"><div id=wrapper><header id=header><nav class="nav-container group" id=nav-topbar><div class=nav-toggle><i class="fas fa-bars"></i></div><div class=nav-text></div><div class="nav-wrap container"><a rel=nofollow href=https://blog.acdzh.ltd/ class=nav-cs-icon><img width=40 height=40 src=https://blog.acdzh.ltd/public/icons/png/avatar_512x512.png alt=acdzh title=Home></a><ul id=menu-default-menu class="nav container-inner group"><li class="menu-item menu-item-type-post_type menu-item-object-page"><a rel=nofollow href=https://blog.acdzh.ltd/><i class="fas fa-home"></i>&nbsp;&nbsp;首页</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page"><a rel=nofollow href=https://blog.acdzh.ltd/categories/%E6%8A%80%E6%9C%AF/><i class="fas fa-gavel"></i>&nbsp;&nbsp;技术</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page"><a rel=nofollow href=https://blog.acdzh.ltd/categories/%E9%97%B2%E8%AF%9D/><i class="fas fa-comment"></i>&nbsp;&nbsp;闲话</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page"><a rel=nofollow href=https://blog.acdzh.ltd/others><i class="fas fa-tools"></i>&nbsp;&nbsp;其它</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page"><a rel=nofollow href=https://blog.acdzh.ltd/post><i class="fas fa-archive"></i>&nbsp;&nbsp;归档</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page"><a rel=nofollow href=https://blog.acdzh.ltd/about><i class="fas fa-user"></i>&nbsp;&nbsp;关于我</a></li><li class="menu-item menu-item-type-post_type menu-item-object-page"></li><li class="menu-item menu-item-type-post_type menu-item-text">---0-0-0---</li></ul></div><div class=container><div class=container-inner><div class=toggle-search><i class="fas fa-search"></i></div><div class=search-expand><div class=search-expand-inner><form method=get class="searchform themeform" action=https://www.google.com/search><div><input type=text class=search name=q placeholder="Press enter to start searching"></div></form></div></div></div></div></nav><div class="container group"><div class=container-inner><div class="group pad"><div class="group pad"></div><h1 class=site-title><a rel=nofollow href=https://blog.acdzh.ltd rel=home><img id=title-avatar-img alt=acdzh src=https://blog.acdzh.ltd/public/icons/png/avatar_mask_512x512.png></img>
+<span>串串的杂七杂八</span></a></h1><p class=site-description></p></div></div></div></div></header><div class=container id=page><div class=container-inner><div class=main><div class="main-inner group"><section class=content><div class="page-title pad group"><ul class="meta-single group"><div><li class=category><a href=https://blog.acdzh.ltd/categories/%E6%8A%80%E6%9C%AF/ rel="series category tag">技术</a></li><li class=category><a href=https://blog.acdzh.ltd/categories/Python/ rel="series category tag">Python</a></li><li class=category><a href=https://blog.acdzh.ltd/categories/%E7%88%AC%E8%99%AB/ rel="series category tag">爬虫</a></li></div><div style=float:right><li class=series><a href=https://blog.acdzh.ltd/series/Github-Organizations-%E6%8B%BC%E5%9B%BE/ rel="series category tag">Github Organizations 拼图</a></li></div><div></div></ul></div><div class="pad group"><article class="post type-post status-publish format-standard has-post-thumbnail hentry category-australien tag-bondi-beach tag-city2surf tag-sydney"><div class="post-inner group"><h1 class=post-title>Github Organizations 拼图 2 - Github Api</h1><p class=post-byline>By
+acdzh
+·
+2019年12月13日 00:27 ·
+2392 Words ·
+~5min reading time
+·
+<span id=/tec/2019-12/github_organizations_puzzle_2-github_api/ class=leancloud_visitors data-flag-title="Github Organizations 拼图 2 - Github Api"><span class=leancloud-visitors-count></span></span>Visitors
+|
+<a href=https://github.com/acdzh/hugo-blog-src/blob/master/content/tec/2019-12/Github%20Organizations%20%e6%8b%bc%e5%9b%be%202%20-%20Github%20api.md target=_blank style=text-decoration:none>Raw on <i class="fab fa-github"></i></a></p><div class=clear></div><div class=entry><div class=entry-inner><h2 id=前言>前言</h2><p><a href=tec/2019-12/github_organizations_puzzle_1-cut_image>上一篇文章</a> 介绍了如何将图片切开, 那么下一步的操作就是与 Github 进行交互, 将图片上传上去.</p><p>Github有官方的api, 但是遗憾的是, 涉及的 Organizations 的 api 比较少. 所需的新建组织, 修改头像等功能均没有&mldr;&mldr; 干脆退而求其次, 自己用模拟网页请求的方式来修改.</p><h2 id=工具>工具</h2><p>Python库: <code>requests</code>, <code>lxml</code></p><p>安装: <code>pip install requests lxml</code></p><h2 id=结构>结构</h2><p>大致需要以下几个功能:</p><ol><li>登录</li><li>新建组织</li><li>删除组织</li><li>修改组织头像</li><li>将组织的可见性设为公开 (实际上是让陌生人可以看到自己在组织内</li><li>列出自己的所有组织 (这个有api支持</li></ol><p>这里将所有操作封装至一个类中, 结构如下:</p><pre><code class=language-python>import requests
+import os
+from lxml import etree
+
+class github_api:
+    def __init__(self, user_name, passwd):
+        ## TODO
+
+    def login(self):
+        ## TODO
+        
+    def organizations_new(self, name, email=&quot;none@none.com&quot;):
+        ## TODO
+
+    def organizations_del(self, name):
+        ## TODO
+
+    def organizations_edit_avatar(self, name, path):
+        ## TODO
+
+    def organizations_turn_to_public(self, name):
+        ## TODO
+   
+    def organizations_list(self):
+        # TODO
+</code></pre><h2 id=实现>实现</h2><h3 id=类的初始化>类的初始化</h3><p>这部分没有什么好解释的.</p><pre><code class=language-python>def __init__(self, user_name, passwd):
+    self.headers = {
+        'Referer': 'https://github.com/',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36',
+    }
+    self.session = requests.Session()
+    self.user_name = user_name
+    self.passwd = passwd
+</code></pre><h3 id=登录>登录</h3><p>转到网址<a href=https://github.com/login>https://github.com/login</a>, 登录, 浏览器抓一下请求.</p><p>可以看到登录操作对应的请求:
+<img src=../img/2019/12/13/013638.png alt>
+<img src=../img/2019/12/13/013651.png alt></p><p>实际上请求的项中, 只有5个是有实际作用的: <code>commit</code>, <code>utf8</code>, <code>login</code>, <code>password</code>, <code>authenticity_token</code></p><p>前4个都好理解, 第5个是什么呢? 这个是 Github 防止 CSRF 攻击设置的 token. 这个 token 和表单一起返回给客户端, 并且客户端在提交表单时需要带上这个 token.</p><p>很容易找到这个 token 的来源: 上一个请求, 即拿到登录表单的请求.
+<img src=../img/2019/12/13/013702.png alt>
+<img src=../img/2019/12/13/013709.png alt></p><p>这一串值可以使用这句 xpath 来获取: <code>//div//input[2]/@value</code></p><p>因此, 登录功能最终的代码如下:</p><pre><code class=language-python>def login(self):
+    print(&quot;start login: &quot; + self.user_name)
+    # get token
+    response = self.session.get('https://github.com/login', headers = self.headers, proxies = proxy)
+    selector = etree.HTML(response.text)
+    token = selector.xpath('//div//input[2]/@value')[0]
+    print(&quot;____get token: &quot; + token)
+    post_data = {
+        'commit': 'Sign in',
+        'utf8': '✓',
+        'authenticity_token': token,
+        'login': self.user_name,
+        'password': self.passwd
+    }
+    self.session.post('https://github.com/session', data = post_data, headers = self.headers, proxies = proxy)
+    print('____login complish')
+</code></pre><h3 id=组织的新建和删除-组织设置公开>组织的新建和删除, 组织设置公开</h3><p>这些功能的实现和登录类似, 并没有新的技巧, 不再赘述.</p><p>代码见文章最后.</p><h3 id=修改头像>修改头像</h3><p>这个的实现和之前的几个有较大的不同.</p><p>一个完整的流程中的几个关键步骤如下(组织名是 <code>dbfhgdjgbjd</code> ):</p><h4 id=1-get-httpsgithubcomorganizationsdbfhgdjgbjdsettingsprofile>1. GET <a href=https://github.com/organizations/dbfhgdjgbjd/settings/profile>https://github.com/organizations/dbfhgdjgbjd/settings/profile</a></h4><h4 id=2-post-httpsgithubcomuploadpoliciesavatars>2. POST <a href=https://github.com/upload/policies/avatars>https://github.com/upload/policies/avatars</a></h4><p>这一步并没有真正地上传图像, 而是发了一个"申请&rdquo;, 获得了两个后续上传需要的token: <code>GitHub-Remote-Auth</code> 和 <code>upload_authenticity_token</code>.</p><p>当然这个包也是要带上token的, 这个 token 在页面里可以提取到.</p><p>req:</p><pre><code class=language-http>POST https://github.com/upload/policies/avatars HTTP/1.1
+Host: github.com
+Connection: keep-alive
+Content-Length: 853
+Accept: application/json
+Origin: https://github.com
+[[[[[[部分header省略]]]]]]
+
+------WebKitFormBoundarysz99ttGms1oGX1ja
+Content-Disposition: form-data; name=&quot;name&quot;
+
+968.jpg
+------WebKitFormBoundarysz99ttGms1oGX1ja
+Content-Disposition: form-data; name=&quot;size&quot;
+
+3629
+------WebKitFormBoundarysz99ttGms1oGX1ja
+Content-Disposition: form-data; name=&quot;content_type&quot;
+
+image/jpeg
+------WebKitFormBoundarysz99ttGms1oGX1ja
+Content-Disposition: form-data; name=&quot;authenticity_token&quot;
+
+8ou0uxgcQpvBHLHIcjFaVrvb+8tRRO4TYQB/gl4+x+PSv/8OSuARnveUEyGtcuP2mxK5J04zAYH7IzP4jmlq+w==
+------WebKitFormBoundarysz99ttGms1oGX1ja
+Content-Disposition: form-data; name=&quot;organization_id&quot;
+
+58733060
+------WebKitFormBoundarysz99ttGms1oGX1ja
+Content-Disposition: form-data; name=&quot;owner_type&quot;
+
+User
+------WebKitFormBoundarysz99ttGms1oGX1ja
+Content-Disposition: form-data; name=&quot;owner_id&quot;
+
+58733060
+------WebKitFormBoundarysz99ttGms1oGX1ja--
+</code></pre><p>res.payload:</p><pre><code class=language-json>1ed
+{&quot;upload_url&quot;:&quot;https://uploads.github.com/avatars&quot;,&quot;header&quot;:{&quot;Accept&quot;:&quot;application/vnd.github.assets+json; charset=utf-8&quot;,&quot;GitHub-Remote-Auth&quot;:&quot;AHWEAHL5XGH75XMA4DUY3ZC5563NW&quot;},&quot;asset&quot;:{&quot;owner_type&quot;:&quot;User&quot;,&quot;owner_id&quot;:58733060,&quot;size&quot;:3629,&quot;content_type&quot;:&quot;image/jpeg&quot;},&quot;form&quot;:{&quot;owner_type&quot;:&quot;User&quot;,&quot;owner_id&quot;:58733060,&quot;size&quot;:3629,&quot;content_type&quot;:&quot;image/jpeg&quot;},&quot;same_origin&quot;:true,&quot;upload_authenticity_token&quot;:&quot;HLuk4ulaztY+QynqbQcsCJfOGIr5L+1CWBveomUxuaCHFQ7s4xe7ugj7vaFPCwh2fcyyUjJbdvLlkKmKrQGegA==&quot;}
+0
+</code></pre><h4 id=3-options-httpsuploadsgithubcomavatars>3. OPTIONS <a href=https://uploads.github.com/avatars>https://uploads.github.com/avatars</a></h4><p>话说我也不是很明白这个是不是必需的&mldr;</p><h4 id=4-post-httpsuploadsgithubcomavatars>4. POST <a href=https://uploads.github.com/avatars>https://uploads.github.com/avatars</a></h4><p>这一步是真正的上传图像了. 会返回图像上传后的地址.</p><p>req:</p><pre><code class=language-http>POST https://uploads.github.com/avatars HTTP/1.1
+Host: uploads.github.com
+Connection: keep-alive
+Content-Length: 4411
+[[[[[[部分header省略]]]]]]
+
+------WebKitFormBoundary1I5xiJATYdIERWZ3
+Content-Disposition: form-data; name=&quot;authenticity_token&quot;
+
+HLuk4ulaztY+QynqbQcsCJfOGIr5L+1CWBveomUxuaCHFQ7s4xe7ugj7vaFPCwh2fcyyUjJbdvLlkKmKrQGegA==
+------WebKitFormBoundary1I5xiJATYdIERWZ3
+Content-Disposition: form-data; name=&quot;owner_type&quot;
+
+User
+------WebKitFormBoundary1I5xiJATYdIERWZ3
+Content-Disposition: form-data; name=&quot;owner_id&quot;
+
+58733060
+------WebKitFormBoundary1I5xiJATYdIERWZ3
+Content-Disposition: form-data; name=&quot;size&quot;
+
+3629
+------WebKitFormBoundary1I5xiJATYdIERWZ3
+Content-Disposition: form-data; name=&quot;content_type&quot;
+
+image/jpeg
+------WebKitFormBoundary1I5xiJATYdIERWZ3
+Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;968.jpg&quot;
+Content-Type: image/jpeg
+
+?? JFIF     xxxxxxxxxx这一部分是图片, 略
+------WebKitFormBoundary1I5xiJATYdIERWZ3--
+</code></pre><p>res:</p><pre><code class=language-http>HTTP/1.1 201 Created
+Date: Tue, 10 Dec 2019 14:16:44 GMT
+Content-Type: application/json
+Content-Length: 197
+[[[[[[部分header省略]]]]]]
+
+{&quot;id&quot;:11958391,&quot;cropped_dimensions&quot;:&quot;0,10,178,178&quot;,&quot;width&quot;:178,&quot;height&quot;:198,&quot;url&quot;:&quot;https://media.githubusercontent.com/avatars/11958391?token=AHWEAHM37N54S53GF6S72BS5563NY&quot;,&quot;path_prefix&quot;:&quot;alambic&quot;}
+</code></pre><h4 id=5-get-httpsgithubcomsettingsavatars11958391>5. GET <a href=https://github.com/settings/avatars/11958391>https://github.com/settings/avatars/11958391</a></h4><p>这个请求返回的是这个裁剪框</p><p><img src=../img/2019/12/13/013744.png alt></p><h4 id=6-post-httpsgithubcomsettingsavatars11958391>6. POST <a href=https://github.com/settings/avatars/11958391>https://github.com/settings/avatars/11958391</a></h4><p>这个请求发送裁剪的结果给服务器. 至此整个流程结束.</p><p>req & res:</p><pre><code class=language-http>POST https://github.com/settings/avatars/11958391 HTTP/1.1
+Host: github.com
+Connection: keep-alive
+Content-Length: 199
+Cache-Control: max-age=0
+Origin: https://github.com
+Upgrade-Insecure-Requests: 1
+[[[[[[部分header省略]]]]]]
+
+op=save&amp;utf8=%E2%9C%93&amp;authenticity_token=qmPVHdKXdln1o2%2BnWm6sXzODj%2B55TYqvg5RoOeBsSvkmPj6uLZ9BzAe9fIvEazw8uwd2ebvFAhMY9AxmVDkBBQ%3D%3D&amp;cropped_x=0&amp;cropped_y=0&amp;cropped_width=178&amp;cropped_height=178
+
+HTTP/1.1 302 Found
+Date: Tue, 10 Dec 2019 14:16:51 GMT
+Content-Type: text/html; charset=utf-8
+Server: GitHub.com
+Status: 302 Found
+Location: https://github.com/organizations/dbfhgdjgbjd/settings/profile
+[[[[[[部分header省略]]]]]]
+X-GitHub-Request-Id: 1FFE:3C3A:57AB8E4:79FAF0A:5DEFA8CD
+
+7f
+&lt;html&gt;&lt;body&gt;You are being &lt;a href=&quot;https://github.com/organizations/dbfhgdjgbjd/settings/profile&quot;&gt;redirected&lt;/a&gt;.&lt;/body&gt;&lt;/html&gt;
+0
+</code></pre><p>这个返回的也很有意思, 是表示设置成功的横幅 (就那个蓝条)</p><p><img src=../img/2019/12/13/013756.png alt></p><h4 id=代码实现>代码实现</h4><p>你应该发现了, 上面的流程中, 2和4的请求很特殊, <code>Content-Type</code> 都不是普通的 <code>application/x-www-form-urlencoded</code> 而是 <code>multipart/form-data</code>.</p><p>4这个包是因为含有文件, 所以才以这种形式上传. 实现如下:</p><pre><code class=language-python>requests.post(
+    'https://uploads.github.com/avatars', 
+    data = {
+            &quot;authenticity_token&quot;: token,
+            &quot;owner_type&quot;: &quot;User&quot;,
+            &quot;owner_id&quot;: org_id,
+            &quot;size&quot;: img_size,
+            &quot;content_type&quot;: &quot;image/png&quot;
+    }, 
+    headers = headers, 
+    files = {
+        ('file', open('./968.jpg', 'rb'))
+    }
+)
+</code></pre><p>这个没什么好说的. 但是2就不行了. 如果简单的使用</p><pre><code class=language-python>requests.post(
+    'https://github.com/upload/policies/avatars', 
+    data = {
+            'name': img_name,
+            'size': img_size,
+            'content_type': 'image/png' ,
+            'authenticity_token': token,
+            'organization_id': org_id,
+            'owner_type': 'User',
+            'owner_id': org_id
+    }, 
+    headers = headers, 
+)
+</code></pre><p>的话, 发出的包并不会是自己想要的 <code>multipart/form-data</code>. requests会以 <code>application/x-www-form-urlencoded</code> 的形式发出. 有两种解决方案:</p><ol><li>使用 <code>requests-toolbelt</code> 这个库来自定义请求头 <code>Content-Type</code> (自定义包的形式)</li><li>偷懒的方式, 如下:</li></ol><pre><code class=language-python>requests.post(
+    'https://github.com/upload/policies/avatars', 
+    data = {
+            'name': img_name,
+            'size': img_size,
+            'content_type': 'image/png' ,
+            'authenticity_token': token,
+            'organization_id': org_id,
+            'owner_type': 'User',
+            'owner_id': org_id
+    }, 
+    file = {'f': 'f'},
+    headers = headers, 
+)
+</code></pre><p>因为加入了一个不为空的 file 参数, requests 会自动以 <code>multipart/form-data</code> 的形式生成 request 包&mldr;&mldr;.(虽然多发出去一个参数, 但是并没有什么影响(&mldr;.</p><p>综合一下, 这部分的代码:</p><pre><code class=language-python>def organizations_edit_avatar(self, name, path):
+    print('start upload new avatar ' + path + ' for organization: ' + name)
+    response = self.session.get(f'https://github.com/organizations/{name}/settings/profile', headers = self.headers, proxies = proxy)
+    selector = etree.HTML(response.text)
+    token = selector.xpath('//file-attachment/@data-upload-policy-authenticity-token')[0]
+    org_id = selector.xpath('//form/@data-scope-id')[0]
+    print(&quot;____get token: &quot; + token)
+    img_size = os.path.getsize(path)
+    img_name = os.path.basename(path)
+    img = open(path, 'rb')
+    post_data = {
+        'name': img_name,
+        'size': img_size,
+        'content_type': 'image/png' ,
+        'authenticity_token': token,
+        'organization_id': org_id,
+        'owner_type': 'User',
+        'owner_id': org_id
+    }
+    response = self.session.post('https://github.com/upload/policies/avatars', data = post_data, files = {'f': 'f'}, headers = self.headers, proxies = proxy)
+    token = response.json()['upload_authenticity_token']
+    remote_auth = response.json()['header']['GitHub-Remote-Auth']
+    print(&quot;____get token2: &quot; + token)
+    print(&quot;____get remote auth: &quot; + remote_auth)
+    self.session.options('https://uploads.github.com/avatars', headers = self.headers, proxies = proxy)
+    post_data = {
+        &quot;authenticity_token&quot;: token,
+        &quot;owner_type&quot;: &quot;User&quot;,
+        &quot;owner_id&quot;: org_id,
+        &quot;size&quot;: img_size,
+        &quot;content_type&quot;: &quot;image/png&quot;
+    }
+    post_files = [
+        ('file', img)
+    ]
+    headers = self.headers
+    headers[&quot;GitHub-Remote-Auth&quot;] = remote_auth
+    response = self.session.post('https://uploads.github.com/avatars', data = post_data, headers = headers, files = post_files, proxies = proxy)
+    upload_id = response.json()['id']
+    img_width = response.json()['width']
+    img_height = response.json()['height']
+    print(&quot;____get avatar upload id: &quot; + str(upload_id))
+    print('____avatar upload url: ' + response.json()['url'])
+    print('____width: ' + str(img_width))
+    print('____height: ' + str(img_height))
+    response = self.session.get(f'https://github.com/settings/avatars/{upload_id}', headers = self.headers, proxies = proxy)
+    selector = etree.HTML(response.text)
+    token = selector.xpath('//input[@name=&quot;authenticity_token&quot;]/@value')[0]
+    post_data = {
+        'op': 'save',
+        'utf8': '✓',
+        'authenticity_token': token,
+        'cropped_x': 0,
+        'cropped_y': 0,
+        'cropped_width': min(img_width, img_height),
+        'cropped_height': min(img_width, img_height)
+    }
+    self.session.post(f'https://github.com/settings/avatars/{upload_id}', headers = self.headers, data = post_data, proxies = proxy)
+    img.close()
+    print(&quot;____edit finish&quot;)
+</code></pre><h3 id=获取所有组织列表>获取所有组织列表</h3><p>这个有api, 直接调用即可</p><pre><code class=language-python>def organizations_list(self):
+    return (self.session.get(f'https://api.github.com/users/{self.user_name}/orgs', headers = self.headers, proxies = proxy).json())
+</code></pre><h2 id=总的代码>总的代码</h2><pre><code class=language-python>import requests
+import os
+from lxml import etree
+
+proxy = {
+    'http': 'socks5://127.0.0.1:1902',
+    'https': 'socks5://127.0.0.1:1902'
+}
+
+class github_api:
+    def __init__(self, user_name, passwd):
+        self.headers = {
+            'Referer': 'https://github.com/',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36',
+        }
+        self.session = requests.Session()
+        self.user_name = user_name
+        self.passwd = passwd
+
+    def login(self):
+        print(&quot;start login: &quot; + self.user_name)
+        # get token
+        response = self.session.get('https://github.com/login', headers = self.headers, proxies = proxy)
+        selector = etree.HTML(response.text)
+        token = selector.xpath('//div//input[2]/@value')[0]
+        print(&quot;____get token: &quot; + token)
+        post_data = {
+            'commit': 'Sign in',
+            'utf8': '✓',
+            'authenticity_token': token,
+            'login': self.user_name,
+            'password': self.passwd
+        }
+        self.session.post('https://github.com/session', data = post_data, headers = self.headers, proxies = proxy)
+        print('____login complish')
+        
+    def organizations_new(self, name, email=&quot;none@none.com&quot;):
+        print('start new organization: ' + name)
+        response = self.session.get('https://github.com/account/organizations/new?coupon=&amp;plan=team_free', headers = self.headers, proxies = proxy)
+        selector = etree.HTML(response.text)
+        token = selector.xpath('//form[@id=&quot;org-new-form&quot;]//input[@name=&quot;authenticity_token&quot;]/@value')[0]
+        print(&quot;____get token: &quot; + token)
+        post_data = {
+            'utf8': '✓',
+            'authenticity_token': token,
+            'coupon': '',
+            'organization[plan]': 'free',
+            'organization[login]': name,
+            'organization[billing_email]': email,
+            'terms_of_service_type': 'standard',
+            'organization[company_name]': ''
+        }
+        self.session.post('https://github.com/organizations', data = post_data, headers = self.headers, proxies = proxy)
+        print(f'____new organization {name} complish')
+
+    def organizations_del(self, name):
+        print('start delete organization: ' + name)
+        response = self.session.get(f'https://github.com/organizations/{name}/settings/profile?_pjax=%23js-pjax-container', headers = self.headers, proxies = proxy)
+        selector = etree.HTML(response.text)
+        token = selector.xpath('//form[@id=&quot;cancel_plan&quot;]//input[@name=&quot;authenticity_token&quot;]//@value')[0]
+        danger_zone_token = selector.xpath('//input[@name=&quot;dangerzone&quot;]/@value')[0]
+        print(&quot;____get token: &quot; + token)
+        post_data = {
+            'utf8': '✓',
+            'authenticity_token': token,
+            '_method': 'delete',
+            'dangerzone': danger_zone_token
+        }
+        self.session.post(f'https://github.com/organizations/{name}', data = post_data, headers = self.headers, proxies = proxy)
+        print(f'____delete organization {name} complish')
+
+    def organizations_edit_avatar(self, name, path):
+        print('start upload new avatar ' + path + ' for organization: ' + name)
+        response = self.session.get(f'https://github.com/organizations/{name}/settings/profile', headers = self.headers, proxies = proxy)
+        selector = etree.HTML(response.text)
+        token = selector.xpath('//file-attachment/@data-upload-policy-authenticity-token')[0]
+        org_id = selector.xpath('//form/@data-scope-id')[0]
+        print(&quot;____get token: &quot; + token)
+        img_size = os.path.getsize(path)
+        img_name = os.path.basename(path)
+        img = open(path, 'rb')
+        post_data = {
+            'name': img_name,
+            'size': img_size,
+            'content_type': 'image/png' ,
+            'authenticity_token': token,
+            'organization_id': org_id,
+            'owner_type': 'User',
+            'owner_id': org_id
+        }
+        response = self.session.post('https://github.com/upload/policies/avatars', data = post_data, files = {'f': 'f'}, headers = self.headers, proxies = proxy)
+        token = response.json()['upload_authenticity_token']
+        remote_auth = response.json()['header']['GitHub-Remote-Auth']
+        print(&quot;____get token2: &quot; + token)
+        print(&quot;____get remote auth: &quot; + remote_auth)
+        self.session.options('https://uploads.github.com/avatars', headers = self.headers, proxies = proxy)
+        post_data = {
+            &quot;authenticity_token&quot;: token,
+            &quot;owner_type&quot;: &quot;User&quot;,
+            &quot;owner_id&quot;: org_id,
+            &quot;size&quot;: img_size,
+            &quot;content_type&quot;: &quot;image/png&quot;
+        }
+        post_files = [
+            ('file', img)
+        ]
+        headers = self.headers
+        headers[&quot;GitHub-Remote-Auth&quot;] = remote_auth
+        response = self.session.post('https://uploads.github.com/avatars', data = post_data, headers = headers, files = post_files, proxies = proxy)
+        upload_id = response.json()['id']
+        img_width = response.json()['width']
+        img_height = response.json()['height']
+        print(&quot;____get avatar upload id: &quot; + str(upload_id))
+        print('____avatar upload url: ' + response.json()['url'])
+        print('____width: ' + str(img_width))
+        print('____height: ' + str(img_height))
+        response = self.session.get(f'https://github.com/settings/avatars/{upload_id}', headers = self.headers, proxies = proxy)
+        selector = etree.HTML(response.text)
+        token = selector.xpath('//input[@name=&quot;authenticity_token&quot;]/@value')[0]
+        post_data = {
+            'op': 'save',
+            'utf8': '✓',
+            'authenticity_token': token,
+            'cropped_x': 0,
+            'cropped_y': 0,
+            'cropped_width': min(img_width, img_height),
+            'cropped_height': min(img_width, img_height)
+        }
+        self.session.post(f'https://github.com/settings/avatars/{upload_id}', headers = self.headers, data = post_data, proxies = proxy)
+        img.close()
+        print(&quot;____edit finish&quot;)
+
+    def organizations_turn_to_public(self, name):
+        print(f&quot;start to set organization {name} to public.&quot;)
+        response = self.session.get(f'https://github.com/orgs/{name}/people', headers = self.headers, proxies = proxy)
+        selector = etree.HTML(response.text)
+        token = selector.xpath('//div[@class=&quot;select-menu-list&quot;][1]/form/input[@name=&quot;authenticity_token&quot;]/@value')[0]
+        member_id = selector.xpath('//div[@class=&quot;select-menu-list&quot;][1]/form/input[@name=&quot;member_ids&quot;]/@value')[0]
+        print(&quot;____get token: &quot; + token)
+        print(&quot;____get member id: &quot; + member_id)
+        post_data = {
+            'publicize': 1,
+            'utf8': '✓',
+            '_method': 'put',
+            'authenticity_token': token,
+            'member_ids': member_id,
+            'publicize': 1
+        }
+        self.session.post(f'https://github.com/orgs/{name}/people/set_visibility', headers = self.headers, data = post_data, proxies = proxy)
+        print(&quot;____set finish&quot;)
+   
+    def organizations_list(self):
+        return (self.session.get(f'https://api.github.com/users/{self.user_name}/orgs', headers = self.headers, proxies = proxy).json())
+</code></pre><h2 id=历史记录>历史记录</h2><table><thead><tr><th align=center>Version</th><th align=center>Action</th><th align=center>Time</th></tr></thead><tbody><tr><td align=center>1.0</td><td align=center>Init</td><td align=center>2019-12-13 00:27:00</td></tr><tr><td align=center>1.0</td><td align=center>迁移至 blog</td><td align=center>2020-04-27T01:30:30+08:00</td></tr></tbody></table></div><div style="border:1px dashed #e0e0e0;padding:10px;background-color:#fffeee;background-repeat:no-repeat;background-attachment:scroll;background-position:1%;border-radius:6px;-moz-background-size:auto auto;-moz-background-clip:-moz-initial;-moz-background-origin:-moz-initial;-moz-background-inline-policy:-moz-initial"><div><p style=margin-top:0>作者：<a target=_blank href=https://blog.acdzh.ltd>acdzh</a><br>本文出处：<a target=_blank href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/>https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/</a><br>互联网日新月异，请注意文章时效。<br><a rel=license href=http://creativecommons.org/licenses/by-nc-sa/4.0/><i class="fab fa-creative-commons"></i><i class="fab fa-creative-commons-by"></i><i class="fab fa-creative-commons-nc"></i><i class="fab fa-creative-commons-sa"></i></a>本作品采用 <a rel=license href=http://creativecommons.org/licenses/by-nc-sa/4.0/>知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a> 进行许可。文章版权归作者所有，允许转载，但未经作者同意必须保留此段声明，且在文章页面明显位置给出原文链接，否则保留追究法律责任的权利。<br></p></div></div><div class=clear></div></div></div></article><div class=clear></div><p class=post-tags><i class="fas fa-folder-open"></i>&nbsp;
+<a rel=category href=https://blog.acdzh.ltd/categories/%E6%8A%80%E6%9C%AF title="All posts in category 技术">技术</a>
+<a rel=category href=https://blog.acdzh.ltd/categories/Python title="All posts in category Python">Python</a>
+<a rel=category href=https://blog.acdzh.ltd/categories/%E7%88%AC%E8%99%AB title="All posts in category 爬虫">爬虫</a>
+&nbsp;&nbsp;&nbsp;
+<i class="fas fa-bookmark"></i>&nbsp;
+<a rel=series href=https://blog.acdzh.ltd/series/Github-Organizations-%E6%8B%BC%E5%9B%BE title="All posts in series Github Organizations 拼图">Github Organizations 拼图</a>
+&nbsp;&nbsp;&nbsp;
+<i class="fas fa-tags"></i>&nbsp;
+<a rel=tag href=https://blog.acdzh.ltd/tags/PIL title="All post with tag PIL">PIL</a>
+<a rel=tag href=https://blog.acdzh.ltd/tags/Github title="All post with tag Github">Github</a>
+<a rel=tag href=https://blog.acdzh.ltd/tags/Python title="All post with tag Python">Python</a>
+<a rel=tag href=https://blog.acdzh.ltd/tags/%E7%88%AC%E8%99%AB title="All post with tag 爬虫">爬虫</a></p><h4 class=heading><i class="fas fa-hand-point-right"></i>Related posts</h4><ul class="related-posts group"></ul><div id=valine_comments></div><script src=//unpkg.com/valine/dist/Valine.min.js></script><script>(function(){mapToObject=function(_this,func){const obj={};_this.forEach((item,index)=>{const result=func(item,index)||[];obj[result[0]]=result[1];});return obj;};const emojis={QQ:mapToObject(['aini','aixin','aoman','baiyan','bangbangtang','baojin','baoquan','bishi','bizui','cahan','caidao','chi','ciya','dabing','daku','dan','deyi','doge','fadai','fanu','fendou','ganga','gouyin','guzhang','haixiu','hanxiao','haobang','haqian','hecai','hexie','huaixiao','jie','jingkong','jingxi','jingya','juhua','keai','kelian','koubi','ku','kuaikule','kulou','kun','lanqiu','leiben','lenghan','liuhan','liulei','nanguo','OK','penxue','piezui','pijiu','qiang','qiaoda','qinqin','qiudale','quantou','saorao','se','shengli','shouqiang','shuai','shui','tiaopi','touxiao','tu','tuosai','weiqu','weixiao','woshou','wozuimei','wunai','xia','xiaojiujie','xiaoku','xiaoyanger','xieyanxiao','xigua','xu','yangtuo','yinxian','yiwen','youhengheng','youling','yun','zaijian','zhayanjian','zhemo','zhouma','zhuakuang','zuohengheng'],name=>[`qq_${name}`,`QQ/${name}.gif`]),'Tieba-New':mapToObject(['','10','100','101','102','103','104','105','106','107','108','109','11','110','111','112','113','114','115','116','117','118','119','12','120','121','122','123','124','13','14','15','16','17','18','19','2','20','21','22','23','24','25','26','27','28','29','3','30','31','32','33','34','35','36','37','38','39','4','40','41','42','43','44','45','46','47','48','49','5','50','6','66','67','68','69','7','70','71','72','73','74','75','76','77','78','79','8','80','81','82','83','84','85','86','87','88','89','9','90','91','92','93','94','95','96','97','98','99'],(name)=>[`tieba_${name}`,`Tieba-New/image_emoticon${name}.png`]),Coolapk:{...mapToObject(['100_qqdoge','1010','1011','1012','1013','1014','1015','1016','1017','1018','1019','101_pyjiaoyi','1020','1021','102_fadai','103_nb','104','105','106','107','108','109','10_aoman','11_yiwen','12_wuyu','13_huaixiao','14_bishi','15_fanu','16_tuosai','17_tushe','18_han','19_koubi','1_hahaha','20_qinqin','21_penxue','22_xiaoyan','23_shui','24_wuzuixiao','25_zaijian','26_kelian','27_qiang','28_ruo','29_baoquan','2_jingya','30_ok','31_xiaoku','32_heiha','33_wulian','34_jizhi','35_ye','36_ku','37_doge','38_wozuimei','39_caidao','3_ciya','40_aixin','41_meigui','42_diaoxie','43_heixian','44_pen','45_yinxian','46_nanguo','47_weiqu','48_weiweiyixiao','49_huanhu','4_liulei','50_xinsui','51_chigua','52_hejiu','53_pu','54_hongyaowan','55_lvyaowan','56_dogexiaoku','57_dogehechi','58_dogeyuanliangta','59_erha','5_keai','60_kuan','61_lvmao','62_huaji','63_liuhanhuaji','64_shounuehuaji','65_coshuaji','66_doujiyanhuaji','67_mojinghuaji','68','69','6_weixiao','70','71','72','73','74','75','76','77','78','79','7_hehe','80','81_naikezui','82_miaomiao','83_huoba','84_baiyan','85','86','87','88','89','8_piezui','90','91','92','93','94','95_erhading','96_kuanlvmao','97_haixiu','98_wunai','99_zhoumei','9_se'],name=>[`coolapk_${name.split('_')[0]}`,`Coolapk/coolapk_emotion_${name}.png`]),...mapToObject(['coolb','fived','fivef','fivem','fiveo','fivey','fy','oned','onef','onem','oneo','oney','oy','teny','twod','twof','twom','twoo','twoy','ty'],name=>[`coolapk_${name}`,`Coolapk/c_${name}.png`])},alu:mapToObject(['不出所料','不说话','不高兴','中刀','中指','中枪','亲亲','便便','内伤','击掌','口水','吐','吐舌','吐血倒地','呲牙','咽气','哭泣','喜极而泣','喷水','喷血','坐等','害羞','小眼睛','尴尬','得意','惊喜','想一想','愤怒','扇耳光','投降','抠鼻','抽烟','无奈','无所谓','无语','暗地观察','期待','欢呼','汗','深思','狂汗','献花','献黄瓜','皱眉','看不见','看热闹','瞅你','肿包','脸红','蜡烛','装大款','观察','赞一个','邪恶','锁眉','长草','阴暗','高兴','黑线','鼓掌'],(name,index)=>[`alu_${name}`,`alu/${name}.png`]),weibo:mapToObject(['d_aoteman','d_baibai','d_baobao','d_beishang','d_bingbujiandan','d_bishi','d_bizui','d_chanzui','d_chigua','d_chijing','d_dahaqi','d_dalian','d_ding','d_doge','d_erha','d_feijie','d_feizao','d_ganmao','d_guile','d_guzhang','d_haha','d_haixiu','d_han','d_hehe','d_heiheihei','d_heixian','d_heng','d_huaixiao','d_huaxin','d_jiyan','d_keai','d_kelian','d_ku','d_kulou','d_kun','d_landelini','d_lang','d_lei','d_miao','d_nanhaier','d_nu','d_numa','d_nvhaier','d_qian','d_qinqin','d_shayan','d_shengbing','d_shenshou','d_shiwang','d_shuai','d_shuijiao','d_sikao','d_taikaixin','d_tanshou','d_tian','d_touxiao','d_tu','d_tuzi','d_wabishi','d_weiqu','d_wu','d_xiaoku','d_xingxingyan','d_xiongmao','d_xixi','d_xu','d_yinxian','d_yiwen','d_youhengheng','d_yun','d_yunbei','d_zhuakuang','d_zhutou','d_zuiyou','emoji_0x1f31f','emoji_0x1f349','emoji_0x1f357','emoji_0x1f384','emoji_0x1f44f','emoji_0x1f47b','emoji_0x1f47f','emoji_0x1f48a','emoji_0x1f4a3','emoji_0x1f4a9','emoji_0x1f631','emoji_0x1f643','emoji_0x1f645','emoji_0x1f648','emoji_0x1f649','emoji_0x1f64a','emoji_0x1f64b','emoji_0x1f64f','emoji_0x1f913','emoji_0x1f917','emoji_0x26a1','h_buyao','h_good','h_haha','h_jiayou','h_lai','h_ok','h_quantou','h_ruo','h_woshou','h_ye','h_zan','h_zuoyi'],name=>[`weibo_${name}`,`weibo/${name}.png`]),lengtu:mapToObject([...new Array(48)],(_,index)=>[`lengtu_${index+1}`,`lengtu/${(index+1).toString().padStart(2,"0")}.gif`]),bilibili_2233:mapToObject(['卖萌','吃惊','吐魂','喝水','困惑','大哭','大笑','委屈','怒','无言','汗','疑问','第一','耶','郁闷'],(name,index)=>[`bili_2233_${name}`,`bilibili2233/[2233娘_${name}].png`]),bilibili_hotkey:mapToObject([...new Array(32)],(_,index)=>[`bili_hotkey_${index+1}`,`bilibiliHotKey/${(index+1)}.jpg`]),bilibili_tv:mapToObject(['doge','亲亲','偷笑','再见','冷漠','发怒','发财','可爱','吐血','呆','呕吐','困','坏笑','大佬','大哭','委屈','害羞','尴尬','微笑','思考','惊吓','打脸','抓狂','抠鼻','斜眼笑','无奈','晕','流汗','流泪','流鼻血','点赞','生气','生病','疑问','白眼','皱眉','目瞪口呆','睡着','笑哭','腼腆','色','调侃','调皮','鄙视','闭嘴','难过','馋','鬼脸','黑人问号','鼓掌'],(name,index)=>[`bili_tv_${name}`,`bilibilitv/[tv_${name}].png`]),aodamiao:mapToObject([...new Array(40)],(_,index)=>[`aodamiao_${index+1}`,`aodamiao/${(index+1).toString().padStart(2,"0")}.gif`]),'Cute-Emoji':mapToObject([...new Array(40)],(_,index)=>[`cute_emoji_${index+1}`,`Cute-Emoji/${(index+1).toString().padStart(3,"0")}.png`]),};new Valine({el:'#valine_comments',appId:'THSEEUpmt73ioQLUO7dO6sI8-9Nh9j0Va',appKey:'2ko493HrmEBiJ5FFTpPnnrWg',avatar:'robohash',visitor:true,recordIP:true,enableQQ:true,emojiCDN:'https://cdn.jsdelivr.net/gh/GamerNoTitle/ValineCDN@master/',emojiMaps:Object.assign({},...Object.keys(emojis).map(name=>emojis[name])),});})();</script></div></section><div class="sidebar s1"><a class=sidebar-toggle title="Expand Sidebar"><i class="fas fa-angle-right"></i></a><div class=sidebar-content><div class="sidebar-top group"><p>Catalog</p></div><div class=toc><div id=page-scrollspy class=toc-nav><ul class=nav-tabs><ul class=nav-tabs><li class=toc-nav-item><a class="toc-nav-link text-left" href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/#%e5%89%8d%e8%a8%80 title=前言>前言</a></li></ul></ul><ul class=nav-tabs><ul class=nav-tabs><li class=toc-nav-item><a class="toc-nav-link text-left" href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/#%e5%b7%a5%e5%85%b7 title=工具>工具</a></li></ul></ul><ul class=nav-tabs><ul class=nav-tabs><li class=toc-nav-item><a class="toc-nav-link text-left" href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/#%e7%bb%93%e6%9e%84 title=结构>结构</a></li></ul></ul><ul class=nav-tabs><ul class=nav-tabs><li class=toc-nav-item><a class="toc-nav-link text-left" href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/#%e5%ae%9e%e7%8e%b0 title=实现>实现</a></li></ul></ul><ul class=nav-tabs><ul class=nav-tabs><ul class=nav-tabs><li class=toc-nav-item><a class="toc-nav-link text-left" href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/#%e7%b1%bb%e7%9a%84%e5%88%9d%e5%a7%8b%e5%8c%96 title=类的初始化>类的初始化</a></li></ul></ul></ul><ul class=nav-tabs><ul class=nav-tabs><ul class=nav-tabs><li class=toc-nav-item><a class="toc-nav-link text-left" href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/#%e7%99%bb%e5%bd%95 title=登录>登录</a></li></ul></ul></ul><ul class=nav-tabs><ul class=nav-tabs><ul class=nav-tabs><li class=toc-nav-item><a class="toc-nav-link text-left" href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/#%e7%bb%84%e7%bb%87%e7%9a%84%e6%96%b0%e5%bb%ba%e5%92%8c%e5%88%a0%e9%99%a4-%e7%bb%84%e7%bb%87%e8%ae%be%e7%bd%ae%e5%85%ac%e5%bc%80 title="组织的新建和删除, 组织设置公开">组织的新建和删除, 组织设置公开</a></li></ul></ul></ul><ul class=nav-tabs><ul class=nav-tabs><ul class=nav-tabs><li class=toc-nav-item><a class="toc-nav-link text-left" href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/#%e4%bf%ae%e6%94%b9%e5%a4%b4%e5%83%8f title=修改头像>修改头像</a></li></ul></ul></ul><ul class=nav-tabs><ul class=nav-tabs><ul class=nav-tabs><ul class=nav-tabs><li class=toc-nav-item><a class="toc-nav-link text-left" href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/#1-get-httpsgithubcomorganizationsdbfhgdjgbjdsettingsprofile title="1. GET https://github.com/organizations/dbfhgdjgbjd/settings/profile">1. GET https://github.com/organizations/dbfhgdjgbjd/settings/profile</a></li></ul></ul></ul></ul><ul class=nav-tabs><ul class=nav-tabs><ul class=nav-tabs><ul class=nav-tabs><li class=toc-nav-item><a class="toc-nav-link text-left" href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/#2-post-httpsgithubcomuploadpoliciesavatars title="2. POST https://github.com/upload/policies/avatars">2. POST https://github.com/upload/policies/avatars</a></li></ul></ul></ul></ul><ul class=nav-tabs><ul class=nav-tabs><ul class=nav-tabs><ul class=nav-tabs><li class=toc-nav-item><a class="toc-nav-link text-left" href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/#3-options-httpsuploadsgithubcomavatars title="3. OPTIONS https://uploads.github.com/avatars">3. OPTIONS https://uploads.github.com/avatars</a></li></ul></ul></ul></ul><ul class=nav-tabs><ul class=nav-tabs><ul class=nav-tabs><ul class=nav-tabs><li class=toc-nav-item><a class="toc-nav-link text-left" href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/#4-post-httpsuploadsgithubcomavatars title="4. POST https://uploads.github.com/avatars">4. POST https://uploads.github.com/avatars</a></li></ul></ul></ul></ul><ul class=nav-tabs><ul class=nav-tabs><ul class=nav-tabs><ul class=nav-tabs><li class=toc-nav-item><a class="toc-nav-link text-left" href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/#5-get-httpsgithubcomsettingsavatars11958391 title="5. GET https://github.com/settings/avatars/11958391">5. GET https://github.com/settings/avatars/11958391</a></li></ul></ul></ul></ul><ul class=nav-tabs><ul class=nav-tabs><ul class=nav-tabs><ul class=nav-tabs><li class=toc-nav-item><a class="toc-nav-link text-left" href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/#6-post-httpsgithubcomsettingsavatars11958391 title="6. POST https://github.com/settings/avatars/11958391">6. POST https://github.com/settings/avatars/11958391</a></li></ul></ul></ul></ul><ul class=nav-tabs><ul class=nav-tabs><ul class=nav-tabs><ul class=nav-tabs><li class=toc-nav-item><a class="toc-nav-link text-left" href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/#%e4%bb%a3%e7%a0%81%e5%ae%9e%e7%8e%b0 title=代码实现>代码实现</a></li></ul></ul></ul></ul><ul class=nav-tabs><ul class=nav-tabs><ul class=nav-tabs><li class=toc-nav-item><a class="toc-nav-link text-left" href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/#%e8%8e%b7%e5%8f%96%e6%89%80%e6%9c%89%e7%bb%84%e7%bb%87%e5%88%97%e8%a1%a8 title=获取所有组织列表>获取所有组织列表</a></li></ul></ul></ul><ul class=nav-tabs><ul class=nav-tabs><li class=toc-nav-item><a class="toc-nav-link text-left" href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/#%e6%80%bb%e7%9a%84%e4%bb%a3%e7%a0%81 title=总的代码>总的代码</a></li></ul></ul><ul class=nav-tabs><ul class=nav-tabs><li class=toc-nav-item><a class="toc-nav-link text-left" href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_2-github_api/#%e5%8e%86%e5%8f%b2%e8%ae%b0%e5%bd%95 title=历史记录>历史记录</a></li></ul></ul></div><script>$("#page-scrollspy a.toc-nav-link").on('click',function(){const navbarHeight=50;const scollOnePageTime=300;let target=decodeURI(this.hash.replace(/^#/,''));let scrollLength=$(":header[id='"+target+"']").offset().top-navbarHeight-50;let scrollTime=Math.max(Math.min(scrollLength*scollOnePageTime/window.innerHeight,800),300);$('html,body').animate({scrollTop:scrollLength},scrollTime);return false;});</script></div><ul class="post-nav group"><li class=next><a href=https://blog.acdzh.ltd/tec/2019-12/use_cl_in_command_line/ rel=next><i class="fas fa-chevron-right"></i><strong>Next post</strong>
+<span>在命令行中使用 Cl.exe 编译器</span></a></li><li class=previous><a href=https://blog.acdzh.ltd/tec/2019-12/github_organizations_puzzle_1-cut_image/ rel=prev><i class="fas fa-chevron-left"></i><strong>Previous Post</strong>
+<span>Github Organizations 拼图 1 - 图像切割</span></a></li></ul><div id=search-2 class="widget widget_search"><h3>Search</h3><form method=get class="searchform themeform" action=https://www.google.com/search><div><input type=text class=search name=q placeholder="Press enter to start searching"></div></form></div></div></div><div class="sidebar s2"><a class=sidebar-toggle title="Expand Sidebar"><i class="fas fa-angle-left"></i></a><div class=sidebar-content><div class="sidebar-top group"><p>More</p></div><div id=categories-2 class="widget widget_categories"><h3><a rel=nofollow href=https://blog.acdzh.ltd/categories/><i class="fas fa-folder-open"></i>&nbsp;Categories</a></h3><ul><li class="cat-item cat-item-1"><a rel=nofollow href=https://blog.acdzh.ltd/categories/CSharp/>CSharp (6)</a></li><li class="cat-item cat-item-1"><a rel=nofollow href=https://blog.acdzh.ltd/categories/Golang/>Golang (2)</a></li><li class="cat-item cat-item-1"><a rel=nofollow href=https://blog.acdzh.ltd/categories/JavaScript/>JavaScript (2)</a></li><li class="cat-item cat-item-1"><a rel=nofollow href=https://blog.acdzh.ltd/categories/Python/>Python (2)</a></li><li class="cat-item cat-item-1"><a rel=nofollow href=https://blog.acdzh.ltd/categories/Windows/>Windows (9)</a></li><li class="cat-item cat-item-1"><a rel=nofollow href=https://blog.acdzh.ltd/categories/%E5%89%8D%E7%AB%AF/>前端 (3)</a></li><li class="cat-item cat-item-1"><a rel=nofollow href=https://blog.acdzh.ltd/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/>嵌入式开发 (4)</a></li><li class="cat-item cat-item-1"><a rel=nofollow href=https://blog.acdzh.ltd/categories/%E6%8A%80%E6%9C%AF/>技术 (26)</a></li><li class="cat-item cat-item-1"><a rel=nofollow href=https://blog.acdzh.ltd/categories/%E7%88%AC%E8%99%AB/>爬虫 (2)</a></li><li class="cat-item cat-item-1"><a rel=nofollow href=https://blog.acdzh.ltd/categories/%E7%A1%AC%E4%BB%B6/>硬件 (1)</a></li><li class="cat-item cat-item-1"><a rel=nofollow href=https://blog.acdzh.ltd/categories/%E7%AE%97%E6%B3%95/>算法 (3)</a></li><li class="cat-item cat-item-1"><a rel=nofollow href=https://blog.acdzh.ltd/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/>软件工程 (4)</a></li><li class="cat-item cat-item-1"><a rel=nofollow href=https://blog.acdzh.ltd/categories/%E9%97%B2%E8%AF%9D/>闲话 (2)</a></li></ul></div><div id=series-2 class="widget widget_categories"><h3><a rel=nofollow href=https://blog.acdzh.ltd/series/><i class="fas fa-bookmark"></i>&nbsp;Series</a></h3><ul><li class="cat-item cat-item-1"><a rel=nofollow href=https://blog.acdzh.ltd/series/Github-Organizations-%E6%8B%BC%E5%9B%BE/>Github-Organizations-拼图 (2)</a></li><li class="cat-item cat-item-1"><a rel=nofollow href=https://blog.acdzh.ltd/series/LeetCode-with-Golang/>LeetCode-with-Golang (2)</a></li><li class="cat-item cat-item-1"><a rel=nofollow href=https://blog.acdzh.ltd/series/UEFI-%E5%8E%9F%E7%90%86%E4%B8%8E%E7%BC%96%E7%A8%8B/>UEFI-原理与编程 (4)</a></li><li class="cat-item cat-item-1"><a rel=nofollow href=https://blog.acdzh.ltd/series/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84-.Net-Shell-%E6%89%A9%E5%B1%95%E6%95%99%E7%A8%8B/>从零开始的-.Net-Shell-扩展教程 (6)</a></li><li class="cat-item cat-item-1"><a rel=nofollow href=https://blog.acdzh.ltd/series/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%BB%8F%E6%B5%8E%E5%AD%A6%E7%AC%94%E8%AE%B0/>软件工程经济学笔记 (4)</a></li></ul><style>#series-2>ul>li a:before{content:'\f02e'}</style></div><div id=tags-2 class=widget><h3><a rel=nofollow href=https://blog.acdzh.ltd/tags/><i class="fas fa-tags"></i>&nbsp;tags</a></h3><p class=post-tags><a href=tags/CSharp><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>CSharp</a>
+<a href=tags/EDK2><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>EDK2</a>
+<a href=tags/Express><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>Express</a>
+<a href=tags/Github><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>Github</a>
+<a href=tags/Golang><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>Golang</a>
+<a href=tags/Hyper-V><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>Hyper-V</a>
+<a href=tags/IEEE-1588><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>IEEE-1588</a>
+<a href=tags/JavaScript><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>JavaScript</a>
+<a href=tags/KOA><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>KOA</a>
+<a href=tags/Kori><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>Kori</a>
+<a href=tags/LeetCode><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>LeetCode</a>
+<a href=tags/Leetcode><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>Leetcode</a>
+<a href=tags/PIL><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>PIL</a>
+<a href=tags/PTP><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>PTP</a>
+<a href=tags/Python><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>Python</a>
+<a href=tags/SharpShell><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>SharpShell</a>
+<a href=tags/UEFI><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>UEFI</a>
+<a href=tags/Wallpaper-Engine><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>Wallpaper-Engine</a>
+<a href=tags/Windows><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>Windows</a>
+<a href=tags/Windows-Shell><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>Windows-Shell</a>
+<a href=tags/blog><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>blog</a>
+<a href=tags/npm><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>npm</a>
+<a href=tags/%E5%B5%8C%E5%85%A5%E5%BC%8F><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>嵌入式</a>
+<a href=tags/%E7%88%AC%E8%99%AB><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>爬虫</a>
+<a href=tags/%E7%A1%AC%E4%BB%B6><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>硬件</a>
+<a href=tags/%E7%AC%94%E8%AE%B0><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>笔记</a>
+<a href=tags/%E7%BB%8F%E6%B5%8E%E5%AD%A6><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>经济学</a>
+<a href=tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>编译原理</a>
+<a href=tags/%E8%AE%BA%E6%96%87><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>论文</a>
+<a href=tags/%E8%AF%BE%E7%A8%8B><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>课程</a>
+<a href=tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B><i class="fas fa-tag" style="color:#ccc;margin:0 6px 0 -6px"></i>软件工程</a></p></div></div></div></div></div></div></div><footer id=footer><section class=container id=footer-bottom><div class=container-inner><a id=back-to-top href=#><i class="fas fa-angle-up"></i></a><div class="pad group"><div class="grid one-half"><div id=copyright style=font-size:1.1rem><p>Copyright (c) 2020. All rights reserved.<p style=margin-top:8px>Power by
+<a rel=nofollow href=http://gohugo.io/ target=_blank>Hugo 0.73.0</a>,
+<a rel=nofollow href=http://golang.org target=_blank>Golang</a>.
+Theme <a rel=nofolloe href=https://github.com/acdzh/hugo-theme-rapid target=_blank>rapid</a>.</p></p></div></div><div class="grid one-half last"><div id=social-links><a href=//github.com/acdzh/ target=_blank rel=noopener title="fork me on github"><i class="fab fa-github" aria-disabled></i></a><a href=//steamcommunity.com/id/acdzh/ target=_blank rel=noopener title="play games with me"><i class="fab fa-steam" aria-disabled></i></a><a href=mailto:acdzh@outlook.com target=_blank rel=noopener title=Mail><i class="far fa-envelope" aria-disabled></i></a><a href="tencent://message/?uin=57082212&Site=1069436872&Menu=yes" target=_blank rel=noopener title=QQ><i class="fab fa-qq" aria-disabled></i></a><a href=//zhihu.com/people/kkkk-zzzz-13 target=_blank rel=noopener title=知乎><i class="fab fa-zhihu" aria-disabled></i></a><div style=font-size:1.1rem;margin-top:10px><a href=//zhuanlan.zhihu.com/c_1159869906471759872 target=_blank rel=noopener title=知乎专栏>zhuanlan</a>
+<a href=//cnblogs.com/acdzh target=_blank rel=noopener title=博客园>cnblogs</a></div></div><style>#social-links{text-align:right;font-size:1.5rem;color:#fff}@media only screen and (max-width:719px){#social-links{margin-top:10px;text-align:center}}</style></div></div></div></section></footer></div></body></html>
